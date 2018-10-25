@@ -10,7 +10,7 @@ WORKDIR /ctfpad
 
 # setup ctfpad
 RUN cd /ctfpad \
-    && git clone https://github.com/StratumAuhuur/CTFPad ctfpad \
+    && git clone https://github.com/ENOFLAG/CTFPad ctfpad \
     && cd ctfpad \ 
     && npm install
 
