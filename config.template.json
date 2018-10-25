@@ -6,5 +6,6 @@
         "certfile": "CTFPAD_SSL_CERT_FILE",
         "authkey": "CTFPAD_AUTHKEY",
         "useHTTPS": CTFPAD_USE_HTTPS,
-        "proxyUseHTTPS": CTFPAD_PROXY_USE_HTTPS
+        "proxyUseHTTPS": CTFPAD_PROXY_USE_HTTPS,
+        "team_name": "Foo"
 }
