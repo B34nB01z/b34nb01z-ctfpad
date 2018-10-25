@@ -5,7 +5,7 @@ Dockerized version of CTFPad by StratumAuhuur.
 `docker pull lucebac/ctfpad`
 
 # Run
-It is recommended to use `docker-compose` to run an manage this container. An example compose file is provided below.
+It is recommended to use `docker-compose` to run and manage this container. An example compose file is provided below.
 
 # Config
 ```yml
@@ -13,7 +13,8 @@ version: '3'
 
 services:
     ctfpad:
-        image: lucebac/ctfpad
+        build: .
+        restart: unless-stopped
         
         ports:
             # ctfpad port
@@ -53,11 +54,11 @@ services:
             - MYSQL_PASSWORD=
 
         volumes:
-            - ./ctfpad_data:/data:z
+            - ./data:/data:z
 ```
-If you want to change the ports CTFPad will listen on, make sure to *both* change the docker ports *and* the environment variables. Otherwise, at least the etherpad istance will not be reachable.
+If you want to change the ports CTFPad will listen on, make sure to *both* change the docker ports *and* the environment variables. Otherwise, at least the etherpad instance will not be reachable.
 
-You need to remove and recreate the container if you want to change settings for a running instance if CTFPad. You can use the following snippet:
+You need to remove and recreate the container if you want to change settings for a running instance of CTFPad. You can use the following snippet:
 ```sh
 docker-compose stop ctfpad
 docker-compose rm -f ctfpad
