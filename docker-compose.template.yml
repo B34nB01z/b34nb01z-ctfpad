@@ -1,46 +1,61 @@
 version: '3'
 
 services:
-    ctfpad:
-        build: .
-        restart: unless-stopped
+  db:
+    image: mysql
+    command: --default-authentication-plugin=mysql_native_password
+    restart: always
+    environment:
+      MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+      MYSQL_ROOT_PASSWORD: 
+      MYSQL_USER:
+      MYSQL_PASSWORD:
+      MYSQL_DATABASE:
+    ports:
+      - "3306"
+
+  ctfpad:
+    build: .
+    restart: unless-stopped
+    depends_on:
+      - "db"
+    
+    ports:
+      # ctfpad port
+      - "80:4242"
+      # etherpad proxy port
+      - "4343:4343"
         
-        ports:
-            # ctfpad port
-            - "4242:4242"
-            # etherpad proxy port
-            - "4343:4343"
-            
-        environment:
-            # ctfpad port
-            - CTFPAD_PORT=4242
-            
-            # set both of the following to 'true' if you
-            # want to have ctfpad/etherpad use ssl directly
-            - CTFPAD_USE_HTTPS=false
-            - CTFPAD_PROXY_USE_HTTPS=false
+    environment:
+      # ctfpad port
+      - CTFPAD_PORT=4242
+      
+      # set both of the following to 'true' if you
+      # want to have ctfpad/etherpad use ssl directly
+      - CTFPAD_USE_HTTPS=false
+      - CTFPAD_PROXY_USE_HTTPS=false
 
-            # default certificates are generated and put to
-            # /data/{key,cert}.pem; change this if you e.g.
-            # want to use let's encrypt certificates
-            - CTFPAD_SSL_KEY_FILE=/data/key.pem
-            - CTFPAD_SSL_CERT_FILE=/data/cert.pem
+      # default certificates are generated and put to
+      # /data/{key,cert}.pem; change this if you e.g.
+      # want to use let's encrypt certificates
+      - CTFPAD_SSL_KEY_FILE=/data/key.pem
+      - CTFPAD_SSL_CERT_FILE=/data/cert.pem
 
-            # authentication key for new signups
-            - CTFPAD_AUTHKEY=ctfpad
+      # authentication key for new signups
+      - CTFPAD_AUTHKEY=ctfpad
 
-            # etherpad proxy port
-            - ETHERPAD_PORT=4343
-            # internal etherpad port; you may not change 
-            # this unless you really need to
-            - ETHERPAD_INTERNAL_PORT=9001
+      # etherpad proxy port
+      - ETHERPAD_PORT=4343
+      # internal etherpad port; you may not change 
+      # this unless you really need to
+      - ETHERPAD_INTERNAL_PORT=9001
 
-            # it's strongly recommended to use mysql or 
-            # mariadb for etherpad's data storage; 
-            # set credentials here
-            - MYSQL_HOST=
-            - MYSQL_USER=
-            - MYSQL_PASSWORD=
+      # it's strongly recommended to use mysql or 
+      # mariadb for etherpad's data storage; 
+      # set credentials here
+      - MYSQL_HOST=
+      - MYSQL_USER=
+      - MYSQL_PASSWORD=
 
-        volumes:
-            - ./ctfpad_data:/data:z
+    volumes:
+      - ./ctfpad_data:/data:z

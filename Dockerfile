@@ -1,4 +1,4 @@
-FROM alpine:latest
+FROM alpine:3.9.6
 
 LABEL maintainer="lucebac <docker@lucebac.net>"
 
@@ -32,7 +32,8 @@ WORKDIR /ctfpad/ctfpad
 VOLUME ["/data"]
 
 COPY docker-entrypoint.sh /usr/local/bin/
-ENTRYPOINT ["docker-entrypoint.sh"]
+COPY init.sh /usr/local/bin/
+ENTRYPOINT ["init.sh", "&&", "docker-entrypoint.sh"]
 
 EXPOSE 4242 4343
-CMD ["su", "ctfpad", "-c", "node main.js"]
+CMD ["su", "ctfpad", "-c", "node", "main.js"]

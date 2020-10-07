@@ -1,5 +1,5 @@
 {
-  "title": "CTFPad",
+  "title": "B34nb01z CTFPad",
   "favicon": "favicon.ico",
   "ip": "0.0.0.0",
   "port" : ETHERPAD_INTERNAL_PORT,
@@ -13,7 +13,7 @@
     "showControls": true,
     "showChat": true,
     "showLineNumbers": true,
-    "useMonospaceFont": false,
+    "useMonospaceFont": true,
     "userName": false,
     "userColor": false,
     "rtl": false,
