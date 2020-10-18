@@ -1,3 +1,7 @@
+# IMPORTANT
+
+### This does not really work, I just played around with it so don't use it
+
 # CTFPad Docker Container
 Dockerized version of CTFPad by StratumAuhuur.
 
